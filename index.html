@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>클리어 법률사무소</title>
+    <style>
+        /* Google Fonts Import */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Poppins:wght@600;700;800&display=swap');
+
+        /* Reset & Global Styles */
+        :root {
+            --navy-dark: #001d3d; /* Main Dark Blue */
+            --navy-main: #003566; /* Main Medium Blue */
+            --navy-light: #415A77;
+            --white: #FFFFFF;
+            --gold: #000f89; /* Gold accent is now Royal Blue */
+            --text-light: #E0E1DD;
+            --text-dark: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--white);
+            line-height: 1.7;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main {
+            flex-grow: 1;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Poppins', 'Noto Sans KR', sans-serif;
+            font-weight: 700;
+            color: var(--navy-dark);
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--gold);
+            margin: 15px auto 0;
+        }
+
+        .page {
+            padding: 80px 0;
+            display: none; /* Pages are hidden by default */
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--gold);
+            color: var(--white);
+            padding: 12px 25px;
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--gold);
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--gold);
+        }
+
+        .btn-cta {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(145deg, #e7c049, #D4AF37);
+            color: #4a2c00;
+            border: 1px solid #b38f29;
+            border-top-color: #f5e28d;
+            border-bottom: 3px solid #b38f29;
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+            font-weight: 700;
+            padding: 20px 45px;
+            font-size: 1.2rem;
+            text-shadow: 0 1px 1px rgba(255,255,255,0.3);
+            border-radius: 8px;
+            transition: all 0.2s ease-out;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn-cta::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            transform: skewX(-25deg);
+            animation: shimmer 3.5s infinite linear;
+        }
+
+        .btn-cta:hover {
+            background: linear-gradient(145deg, #f0ca5f, #e7c049);
+            color: #4a2c00;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5), inset 0 1px 1px rgba(255,255,255,0.4);
+        }
+
+        .btn-cta:active {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(212, 175, 55, 0.4), inset 0 2px 4px rgba(0,0,0,0.15);
+            border-bottom: 3px solid #b38f29;
+        }
+
+        @keyframes shimmer {
+            0% {
+                left: -150%;
+            }
+            100% {
+                left: 150%;
+            }
+        }
+
+        /* Header & Navigation */
+        .header {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 15px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--navy-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .logo img {
+            width: 120px;
+            height: auto;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-left: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--navy-main);
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after, .nav-links li.active a::after {
+            width: 100%;
+        }
+        
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Home (Hero) Section */
+        #page-home {
+            height: 100vh;
+            padding: 0;
+            display: flex;
+            background-color: var(--white);
+            overflow: hidden;
+        }
+
+        .hero-main-panel {
+            flex: 6;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 5vw;
+            animation: fadeIn 1.5s ease-out;
+        }
+        
+        .hero-side-panel {
+            flex: 4;
+            background-color: var(--navy-dark);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 4vw;
+            color: var(--white);
+            position: relative;
+            animation: fadeInFromRight 1.5s 0.3s backwards;
+        }
+
+        .hero-side-panel::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 15%;
+            width: 2px;
+            height: 70%;
+            background-color: var(--gold);
+            transform-origin: top;
+            animation: drawLine 1s ease-out 0.5s backwards;
+        }
+        
+        .hero-main-panel h1 {
+            font-size: clamp(3rem, 10vw, 8rem);
+            line-height: 1.1;
+            letter-spacing: -4px;
+            margin: 0;
+            font-weight: 800;
+            position: relative;
+            color: #004AAD; /* Brighter Navy Blue */
+            text-shadow: 2px 2px 4px rgba(0, 29, 61, 0.2);
+            overflow: hidden;
+        }
+
+        .hero-main-panel h1::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            transform: skewX(-25deg);
+            animation: shimmer 4s infinite linear;
+        }
+
+        .hero-main-panel .subtitle {
+            font-size: 1.2rem;
+            color: var(--navy-light);
+            font-weight: 400;
+            margin-top: 25px;
+        }
+
+        .hero-side-panel .slogan {
+            font-size: 1.5rem;
+            color: var(--white);
+            font-weight: 500;
+            margin-bottom: 50px;
+            letter-spacing: -0.5px;
+            line-height: 1.5;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInFromRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes drawLine {
+            from { transform: scaleY(0); }
+            to { transform: scaleY(1); }
+        }
+        
+        /* Values Section */
+        #page-values { background-color: var(--white); }
+        .values-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .value-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 30px;
+        }
+        .value-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .value-number {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+            flex-shrink: 0;
+        }
+        .value-text h3 {
+            font-size: 1.8rem;
+            color: var(--navy-main);
+            margin-bottom: 10px;
+        }
+        .value-text p { color: #555; text-align: justify; }
+
+        /* Attorney Section */
+        #page-attorneys {
+            background-color: var(--white);
+        }
+        .attorney-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 60px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .attorney-card {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 5px 30px rgba(0,29,61,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            align-items: flex-start;
+            padding: 40px;
+            gap: 40px;
+        }
+        .attorney-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(0,29,61,0.15);
+        }
+        .attorney-identity {
+            flex: 0 0 200px;
+            text-align: center;
+        }
+        .attorney-photo-wrapper {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            border: 4px solid var(--white);
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        .attorney-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .attorney-identity h3 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        .attorney-identity span {
+            font-size: 1.1rem;
+            color: var(--gold);
+            font-weight: 500;
+            display: block;
+        }
+        .attorney-details {
+            flex: 1;
+        }
+        .attorney-details h4 {
+            font-size: 1.1rem;
+            color: var(--navy-main);
+            border-left: 3px solid var(--gold);
+            padding-left: 10px;
+            margin-bottom: 15px;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-weight: 500;
+        }
+        .attorney-details h4:not(:first-child) {
+             margin-top: 25px;
+        }
+        .attorney-details ul {
+            list-style: none;
+            padding-left: 13px;
+        }
+        .attorney-details li {
+            margin-bottom: 8px;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        .attorney-details p {
+            color: #444;
+            font-size: 0.95rem;
+            text-align: justify;
+            padding-left: 13px;
+        }
+        
+        /* Process Section */
+        #page-process {
+            background-color: var(--white);
+            overflow: hidden;
+        }
+        .process-grid-c {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 80px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .process-item-c {
+            position: relative;
+        }
+        .process-bg-number {
+            position: absolute;
+            top: 50%;
+            font-size: 12rem;
+            font-weight: 800;
+            color: rgba(0, 29, 61, 0.05);
+            z-index: 1;
+            line-height: 1;
+            user-select: none;
+        }
+        .process-item-c:nth-child(odd) .process-bg-number {
+            left: -5%;
+            transform: translateY(-50%);
+        }
+        .process-item-c:nth-child(even) .process-bg-number {
+            right: -5%;
+            transform: translateY(-50%);
+        }
+        .process-content-c {
+            position: relative;
+            z-index: 2;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(5px);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 29, 61, 0.1);
+        }
+        .process-item-c:nth-child(odd) .process-content-c {
+            margin-left: 10%;
+        }
+        .process-item-c:nth-child(even) .process-content-c {
+            margin-right: 10%;
+        }
+        .process-content-c h3 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .process-content-c h3 span {
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin-right: 15px;
+            font-weight: 700;
+        }
+        .process-content-c p {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        /* Success Stories & Reviews Common Styles */
+        #page-success-stories, #page-reviews { background-color: var(--white); }
+        
+        .list-item-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        .story-item, .review-item {
+            background-color: var(--white);
+            padding: 25px;
+            border-radius: 5px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+            border: 1px solid #f0f0f0;
+        }
+        .story-item { border-left: 5px solid var(--gold); display: flex; align-items: flex-start; }
+        .review-item { border-left: 5px solid var(--navy-main); }
+        
+        .category-btn-container { text-align: center; margin-bottom: 40px; }
+        .category-btn {
+            background: none; border: 1px solid #ddd; padding: 10px 20px; margin: 0 5px; cursor: pointer;
+            border-radius: 20px; transition: all 0.3s;
+        }
+        .category-btn:hover, .category-btn.active { background-color: var(--navy-main); color: white; border-color: var(--navy-main); }
+        
+        .story-item-category {
+            background-color: var(--navy-light); color: white; padding: 5px 12px; border-radius: 15px; font-size: 0.8rem;
+            font-weight: 500; margin-right: 20px; flex-shrink: 0; margin-top: 3px;
+        }
+        .story-item-content h3, .review-item h3 { font-size: 1.3rem; margin-bottom: 10px; font-family: 'Noto Sans KR', sans-serif; font-weight: 500; }
+        .story-item-content p, .review-item p { color: #555; font-size: 0.95rem; }
+        
+        .review-item p { margin-bottom: 15px; }
+        .review-item .reviewer { text-align: right; font-weight: 500; color: var(--navy-light); }
+
+        /* Pagination Styles */
+        .pagination {
+            margin-top: 40px; display: flex; justify-content: center; align-items: center; gap: 8px;
+        }
+        .page-link {
+            cursor: pointer; padding: 8px 14px; border: 1px solid #ddd; border-radius: 4px; color: var(--navy-main);
+            transition: all 0.2s ease; background-color: var(--white);
+        }
+        .page-link:hover { background-color: #f0f0f0; border-color: #ccc; }
+        .page-link.active { background-color: var(--navy-main); color: var(--white); border-color: var(--navy-main); font-weight: 500; }
+
+        /* Contact Section */
+        #page-contact { background-color: var(--white); }
+        .contact-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .contact-intro {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 40px;
+        }
+        .contact-actions {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        .contact-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 200px;
+            height: 150px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            font-weight: 700;
+        }
+        .contact-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            transform: skewX(-25deg);
+            animation: shimmer 3.5s infinite linear;
+        }
+        .contact-btn:hover {
+            transform: translateY(-10px);
+        }
+
+        /* Phone Button */
+        .contact-btn.phone {
+            background: linear-gradient(145deg, #5ae871, #4CD964);
+            border: 1px solid #45c45a;
+            border-bottom: 3px solid #3da94f;
+            box-shadow: 0 6px 20px rgba(76, 217, 100, 0.35), inset 0 1px 1px rgba(255,255,255,0.4);
+        }
+        .contact-btn.phone:hover { box-shadow: 0 8px 25px rgba(76, 217, 100, 0.5), inset 0 1px 1px rgba(255,255,255,0.4); }
+        
+        /* LawTalk Button */
+        .contact-btn.lawtalk {
+            background: linear-gradient(145deg, #ffb650, #ff9500);
+            border: 1px solid #e68600;
+            border-bottom: 3px solid #cc7700;
+            box-shadow: 0 6px 20px rgba(255, 149, 0, 0.35), inset 0 1px 1px rgba(255,255,255,0.4);
+        }
+        .contact-btn.lawtalk:hover { box-shadow: 0 8px 25px rgba(255, 149, 0, 0.5), inset 0 1px 1px rgba(255,255,255,0.4); }
+        
+        /* KakaoTalk Button */
+        .contact-btn.kakao {
+            background: linear-gradient(145deg, #fff061, #fee500);
+            border: 1px solid #e6cf00;
+            border-bottom: 3px solid #ccb800;
+            box-shadow: 0 6px 20px rgba(254, 229, 0, 0.35), inset 0 1px 1px rgba(255,255,255,0.4);
+            color: #3C1E1E; /* Dark text on yellow */
+        }
+        .contact-btn.kakao:hover { box-shadow: 0 8px 25px rgba(254, 229, 0, 0.5), inset 0 1px 1px rgba(255,255,255,0.4); }
+
+        .contact-btn svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 15px;
+            fill: currentColor;
+        }
+        .contact-btn span {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+        .contact-details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            text-align: left;
+            border-top: 1px solid #eee;
+            padding-top: 40px;
+        }
+        .contact-detail-item {
+            padding: 15px;
+        }
+        .contact-detail-item h4 {
+            font-size: 1.1rem;
+            color: var(--navy-dark);
+            margin-bottom: 5px;
+        }
+        .contact-detail-item p,
+        .contact-detail-item a {
+            font-size: 1rem;
+            color: #555;
+            text-decoration: none;
+        }
+        .contact-detail-item a:hover {
+            color: var(--gold);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--navy-dark); color: var(--text-light); padding: 40px 0;
+            text-align: center; font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                background-color: white;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .nav-links li {
+                margin: 15px 0;
+                text-align: center;
+            }
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        @media (max-width: 900px) {
+             .attorney-grid { grid-template-columns: 1fr; }
+        }
+        
+        /* Updated Responsive Design for 768px and below */
+        @media (max-width: 768px) {
+            
+            /* Home Section Responsive Layout */
+            #page-home {
+                flex-direction: column;
+                height: auto;
+            }
+            .hero-main-panel {
+                flex: none;
+                padding: 120px 20px 60px;
+                text-align: center;
+                order: 1; /* White part comes first */
+            }
+            .hero-side-panel {
+                flex: none;
+                padding: 60px 20px;
+                align-items: center;
+                text-align: center;
+                order: 2; /* Blue part comes second */
+            }
+            .hero-side-panel::before {
+                top: 0; left: 50%;
+                width: 70%; height: 2px;
+                transform: translateX(-50%);
+                animation: drawLineX 1s ease-out 0.5s backwards;
+            }
+
+            @keyframes drawLineX {
+                from { transform: translateX(-50%) scaleX(0); }
+                to { transform: translateX(-50%) scaleX(1); }
+            }
+            
+            h2 { font-size: 2rem; }
+            
+            .value-item { gap: 20px; }
+            .value-number { font-size: 3rem; }
+
+            /* Attorney Section Responsive Layout */
+            .attorney-card {
+                flex-direction: column;
+                align-items: center;
+                padding: 40px 30px;
+                gap: 30px;
+            }
+            .attorney-identity {
+                flex-basis: auto;
+            }
+            .attorney-details {
+                width: 100%;
+            }
+            
+            /* Process Section Responsive Layout */
+            .process-item-c:nth-child(odd) .process-content-c,
+            .process-item-c:nth-child(even) .process-content-c {
+                margin: 0;
+            }
+            .process-bg-number {
+                font-size: 8rem;
+                opacity: 0.08;
+            }
+            
+            /* Contact Section Responsive Layout */
+            .contact-actions {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            .contact-btn {
+                width: 100%;
+                max-width: 300px;
+                height: 120px;
+            }
+            .contact-details-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo" data-page="home">
+                <!-- <img src="logo.jpg" alt="클리어 법률사무소 로고"> -->
+                <span>클리어 법률사무소</span>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a data-page="home">홈</a></li>
+                    <li><a data-page="values">클리어의 가치</a></li>
+                    <li><a data-page="attorneys">변호사 소개</a></li>
+                    <li><a data-page="process">의뢰 절차</a></li>
+                    <li><a data-page="success-stories">성공사례</a></li>
+                    <li><a data-page="reviews">상담 후기</a></li>
+                    <li><a data-page="contact">오시는 길 및 상담</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle">&#9776;</div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Home Page (Hero) -->
+        <section id="page-home" class="page">
+            <div class="hero-main-panel">
+                <h1>클리어<br>법률사무소</h1>
+                <p class="subtitle">명쾌, 투명, 신속한 법률 솔루션으로 당신의 문제를 해결합니다.</p>
+            </div>
+            <div class="hero-side-panel">
+                <p class="slogan">전원 SKY 학부 & SKY 로스쿨<br>출신의 압도적 역량</p>
+                <a class="btn btn-cta" data-page="contact">대표 변호사 1:1 상담 예약</a>
+            </div>
+        </section>
+
+        <!-- Values Page -->
+        <section id="page-values" class="page">
+            <div class="container">
+                <h2>클리어의 가치</h2>
+                <div class="values-grid">
+                    <div class="value-item">
+                        <div class="value-number">01</div>
+                        <div class="value-text">
+                            <h3>최고의 실력</h3>
+                            <p>전원 SKY 출신 변호인단의 압도적인 전문성으로 사건의 본질을 꿰뚫습니다. 우리는 복잡한 법리 해석과 수많은 변수 속에서도 가장 확실한 승소 전략을 수립하여, 의뢰인에게 최상의 결과를 안겨드립니다.</p>
+                        </div>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-number">02</div>
+                        <div class="value-text">
+                            <h3>효율적 시스템</h3>
+                            <p>우리는 불필요한 광고나 과도한 사무실 운영 비용을 과감히 제거했습니다. 모든 자원과 역량을 오직 의뢰인의 사건 해결에만 집중하여, 가장 신속하고 정확한 법률 서비스를 제공합니다.</p>
+                        </div>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-number">03</div>
+                        <div class="value-text">
+                            <h3>합리적 비용</h3>
+                            <p>최고의 실력에서 비롯된 운영 효율성은 자연스럽게 비용의 합리성으로 귀결됩니다. 더 많은 분들이 최고 수준의 법률 서비스를 경험할 수 있도록, 실력의 기준은 높이되 비용의 문턱은 낮췄습니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Attorneys Page -->
+        <section id="page-attorneys" class="page">
+            <div class="container">
+                <h2>변호사 소개</h2>
+                <div class="attorney-grid">
+                    <div class="attorney-card">
+                        <div class="attorney-identity">
+                            <div class="attorney-photo-wrapper">
+                                <img src="kdh.jpg" alt="김동훈 대표 변호사" class="attorney-photo" onerror="this.onerror=null;this.src='https://placehold.co/150x150/001d3d/FFFFFF?text=KDH';">
+                            </div>
+                            <h3>김동훈</h3>
+                            <span>대표 변호사</span>
+                        </div>
+                        <div class="attorney-details">
+                            <h4>학력</h4>
+                            <ul>
+                                <li>서울대학교 법학전문대학원 졸업</li><li>고려대학교 졸업</li><li>대원외국어고등학교 졸업</li><li>휘문중학교 졸업</li>
+                            </ul>
+                            <h4>주요 경력</h4>
+                            <ul>
+                                <li>클리어 법률사무소 대표 변호사</li><li>한국부동산원 자문위원</li><li>前 서울가정법원 국선보조인</li><li>前 대법원 국선변호인</li><li>前 서울중앙지방법원 국선변호인</li><li>前 서울동부지방법원 국선변호인</li><li>이든특허법률사무소 고문 변호사</li><li>메가스터디 메가로스쿨 법학적성시험(LEET) 강사</li>
+                            </ul>
+                            <h4>소개</h4>
+                            <p>김동훈 변호사는 법학적성시험(LEET)에서 전국 30등대의 성적을 받고 서울대학교 법학전문대학원을 졸업한 법률 전문가로, 이혼, 가사, 부동산 분야에서 탁월한 실력을 인정받고 있습니다. 미국 Top 5 사모펀드인 Warburg Pincus의 한국 파트너사 자문, 수백~수천억 원대 규모의 부동산 금융 자문, 분양계약, 매매 및 임대차 분쟁 등에 이르는 폭넓은 부동산 관련 사건 경험과 함께, 수백 건의 민사, 가사, 형사 사건을 성공적으로 수행한 실적을 보유하고 있습니다.</p>
+                        </div>
+                    </div>
+                    <div class="attorney-card">
+                         <div class="attorney-identity">
+                            <div class="attorney-photo-wrapper">
+                                 <img src="jsi.jpg" alt="정수인 변호사" class="attorney-photo" onerror="this.onerror=null;this.src='https://placehold.co/150x150/001d3d/FFFFFF?text=JSI';">
+                            </div>
+                            <h3>정수인</h3>
+                            <span>변호사</span>
+                        </div>
+                        <div class="attorney-details">
+                            <h4>학력</h4>
+                            <ul><li>고려대학교 법학전문대학원 졸업</li><li>고려대학교 졸업</li><li>안양외국어고등학교 졸업</li></ul>
+                            <h4>주요 경력</h4>
+                            <ul><li>클리어 법률사무소 소속 변호사</li><li>법무법인 KCL 소속 변호사</li><li>법무법인 정의 소속 변호사</li></ul>
+                            <h4>소개</h4>
+                            <p>정수인 변호사는 다양한 송무와 자문 업무를 수행하며 폭넓은 실무 경험을 쌓아왔습니다. 다양한 형사, 가사 사건부터 대형 부동산 분쟁, 기업 자문에 이르기까지, 분야와 규모를 막론하며 빈틈없는 대응를 자랑하고 있습니다.</p>
+                        </div>
+                    </div>
+                    <div class="attorney-card">
+                        <div class="attorney-identity">
+                            <div class="attorney-photo-wrapper">
+                                <img src="hwl.jpg" alt="한우림 변호사" class="attorney-photo" onerror="this.onerror=null;this.src='https://placehold.co/150x150/001d3d/FFFFFF?text=HWL';">
+                            </div>
+                            <h3>한우림</h3>
+                            <span>변호사</span>
+                        </div>
+                        <div class="attorney-details">
+                            <h4>학력</h4>
+                            <ul><li>연세대학교 법학전문대학원 졸업</li><li>연세대학교 졸업</li><li>OO고등학교 졸업</li></ul>
+                            <h4>주요 경력</h4>
+                            <ul><li>클리어 법률사무소 소속 변호사</li></ul>
+                            <h4>소개</h4>
+                            <p>한우림 변호사는 다양한 송무와 자문 업무를 수행하고 있습니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Page -->
+        <section id="page-process" class="page">
+            <div class="container">
+                <h2>의뢰 절차</h2>
+                <div class="process-grid-c">
+                    <div class="process-item-c">
+                        <div class="process-bg-number">01</div>
+                        <div class="process-content-c">
+                            <h3><span>1.</span>상담 신청</h3>
+                            <p>전화, 카카오톡, 로톡 등 편하신 방법으로 대표 변호사 1:1 상담을 신청합니다.</p>
+                        </div>
+                    </div>
+                    <div class="process-item-c">
+                        <div class="process-bg-number">02</div>
+                        <div class="process-content-c">
+                            <h3><span>2.</span>초기 상담</h3>
+                            <p>대표 변호사가 사건의 개요를 듣고, 법적 쟁점과 해결 방안을 제시합니다.</p>
+                        </div>
+                    </div>
+                    <div class="process-item-c">
+                        <div class="process-bg-number">03</div>
+                        <div class="process-content-c">
+                            <h3><span>3.</span>계약 체결</h3>
+                            <p>충분한 설명을 들으신 후, 변호사 선임계약을 체결하고 업무에 착수합니다.</p>
+                        </div>
+                    </div>
+                    <div class="process-item-c">
+                        <div class="process-bg-number">04</div>
+                        <div class="process-content-c">
+                            <h3><span>4.</span>사건 진행</h3>
+                            <p>사건별 전용 대화방에서 변호사, 담당 변호사 및 담당 직원이 의뢰인님과 소통하며 사건을 진행합니다.</p>
+                        </div>
+                    </div>
+                    <div class="process-item-c">
+                        <div class="process-bg-number">05</div>
+                        <div class="process-content-c">
+                            <h3><span>5.</span>사건 완료</h3>
+                            <p>사건이 완료되면 결과를 상세히 설명하고 필요시 후속조치를 안내합니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Success Stories Page -->
+        <section id="page-success-stories" class="page">
+            <div class="container">
+                <h2>성공 사례</h2>
+                <div class="category-btn-container"></div>
+                <div id="stories-list" class="list-item-container"></div>
+                <div id="pagination-controls" class="pagination"></div>
+            </div>
+        </section>
+
+        <!-- Consultation Reviews Page -->
+        <section id="page-reviews" class="page">
+            <div class="container">
+                <h2>상담 후기</h2>
+                <div id="reviews-list" class="list-item-container"></div>
+                <div id="reviews-pagination-controls" class="pagination"></div>
+            </div>
+        </section>
+
+        <!-- Contact Page -->
+        <section id="page-contact" class="page">
+            <div class="container">
+                <h2>오시는 길 및 상담 문의</h2>
+                <div class="contact-container">
+                     <p class="contact-intro">편하신 방법으로 상담을 신청하시면, 대표 변호사가 직접 검토 후 연락드립니다.</p>
+                     <div class="contact-actions">
+                         <a href="tel:02-6423-6023" class="contact-btn phone">
+                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                             <span>전화 상담</span>
+                         </a>
+                         <a href="https://www.lawtalk.co.kr/directory/profile/5720" target="_blank" class="contact-btn lawtalk">
+                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V6h5.17l2 2H20v10z"/><path d="M12 12.5c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5-1.12-2.5-2.5-2.5zM12 14.5c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5z"/></svg>
+                             <span>로톡 상담</span>
+                         </a>
+                         <a href="http://pf.kakao.com/_xchbun/chat" target="_blank" class="contact-btn kakao">
+                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                             <span>카카오톡 상담</span>
+                         </a>
+                     </div>
+                     <div class="contact-details-grid">
+                         <div class="contact-detail-item">
+                             <h4>주소</h4>
+                             <p><a href="https://www.google.com/maps/search/?api=1&query=서울+강남구+영동대로+517" target="_blank">서울 강남구 영동대로 517, 37층 (삼성동, 아셈타워)</a></p>
+                         </div>
+                         <div class="contact-detail-item">
+                             <h4>연락처</h4>
+                             <p><a href="tel:02-6423-6023">02-6423-6023</a></p>
+                         </div>
+                         <div class="contact-detail-item">
+                             <h4>이메일</h4>
+                             <p><a href="mailto:contact@clearlaw.co.kr">contact@clearlaw.co.kr</a></p>
+                         </div>
+                         <div class="contact-detail-item">
+                             <h4>운영시간</h4>
+                             <p>평일 10:00 - 18:00</p>
+                         </div>
+                     </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>클리어 법률사무소 | 대표변호사 김동훈</p>
+            <p>주소: 서울 강남구 영동대로 517, 37층 (삼성동, 아셈타워) | TEL: 02-6423-6023</p>
+            <p>&copy; 2025 Clear Law Office. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Page navigation logic
+            const pages = document.querySelectorAll('.page');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            const navButtons = document.querySelectorAll('[data-page]');
+            
+            function showPage(pageId) {
+                pages.forEach(page => { page.style.display = 'none'; });
+                const targetPage = document.getElementById('page-' + pageId);
+                if (targetPage) {
+                    targetPage.style.display = 'block';
+                    if (pageId === 'home') { targetPage.style.display = 'flex'; }
+                }
+                navLinks.forEach(link => {
+                    link.parentElement.classList.toggle('active', link.dataset.page === pageId);
+                });
+                window.scrollTo(0, 0);
+            }
+
+            navButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const pageId = e.currentTarget.dataset.page;
+                    showPage(pageId);
+                    if (document.querySelector('.nav-links').classList.contains('active')) {
+                        document.querySelector('.nav-links').classList.remove('active');
+                    }
+                });
+            });
+
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinksContainer = document.querySelector('.nav-links');
+            menuToggle.addEventListener('click', () => {
+                navLinksContainer.classList.toggle('active');
+            });
+
+            showPage('home');
+
+            /****************************************************************************
+             * * ✅ 성공 사례 데이터 관리
+             ****************************************************************************/
+            const successStories = [
+                { category: "부동산", title: "부동산 매매계약 해제에 따른 손해배상 청구 소송 승소", summary: "매수인의 귀책사유로 인한 계약 해제 사건에서, 의뢰인(매도인)을 대리하여 계약금 몰취 및 추가 손해배상을 성공적으로 이끌어냈습니다." },
+                { category: "이혼·가사", title: "고액 재산분할 및 양육권 지정 소송에서 의뢰인 측 전부 승소", summary: "상대방이 은닉한 재산을 철저히 추적하고, 자녀와의 유대 관계를 객관적 자료로 입증하여 재산분할과 양육권 모두에서 최상의 결과를 얻었습니다." },
+                { category: "형사", title: "특정경제범죄가중처벌법상 사기 혐의 무죄 판결", summary: "복잡한 금융 거래 내역을 명쾌하게 분석하고, 고의성 없음을 입증하여 1심에서 무죄 판결을 받았습니다." },
+                { category: "부동산", title: "상가 임대차 권리금 회수 관련 분쟁에서 임차인 측 승소", summary: "임대인의 방해 행위를 입증하고, 적정 권리금 감정평가를 통해 의뢰인(임차인)이 정당한 권리금을 회수할 수 있도록 조력하였습니다." },
+                { category: "외국인", title: "외국인 투자자의 국내 기업 투자 관련 법률 자문 성공적 수행", summary: "복잡한 국내법 및 국제 규약을 검토하여 투자 과정에서 발생할 수 있는 법적 리스크를 최소화하고 안정적인 투자가 이루어지도록 자문하였습니다." },
+                { category: "이혼·가사", title: "재산분할 방어를 위한 소송 승소", summary: "상대방의 과도한 재산분할 청구에 대해 의뢰인의 기여도를 명확히 입증하여 재산을 성공적으로 방어했습니다." },
+                { category: "형사", title: "교통사고 뺑소니 혐의 기소유예 처분", summary: "CCTV 영상 분석과 목격자 진술을 통해 의뢰인의 고의성이 없었음을 주장하여 기소유예 처분을 이끌어냈습니다." },
+                { category: "부동산", title: "재개발 조합 상대 현금청산금 증액 소송 승소", summary: "감정평가의 문제점을 지적하고 주변 시세를 근거로 제시하여 현금청산금을 대폭 증액시키는 판결을 받았습니다." },
+                { category: "형사", title: "업무상 배임 혐의 무죄 주장", summary: "회계 자료와 내부 문건을 면밀히 검토하여 경영상의 판단이었음을 입증, 무죄를 주장하고 있습니다." },
+                { category: "이혼·가사", title: "국제 이혼 소송 관할권 및 재산분할 승소", summary: "국제사법에 근거하여 국내 법원의 관할권을 인정받고, 해외 자산을 포함한 재산분할에서 유리한 판결을 이끌어냈습니다." },
+                { category: "부동산", title: "하자보수보증금 청구 소송 전부 승소", summary: "아파트 입주자대표회의를 대리하여 시공사의 부실 공사를 입증하고, 하자보수보증금 전액을 청구하는 데 성공했습니다." }
+            ];
+
+            /****************************************************************************
+             * * ✅ 상담 후기 데이터 관리
+             ****************************************************************************/
+            const consultationReviews = [
+                { reviewer: "김OO님 (부동산 분쟁)", title: "덕분에 복잡한 문제를 해결했습니다.", summary: "오랜 기간 끌어오던 부동산 문제였는데, 변호사님께서 핵심을 정확히 짚어주셔서 생각보다 빠르게 해결할 수 있었습니다. 정말 감사드립니다." },
+                { reviewer: "박OO님 (이혼 소송)", title: "제2의 인생을 시작할 수 있게 해주셨습니다.", summary: "정신적으로 너무 힘든 시간이었는데, 항상 제 입장에서 공감해주시고 법적으로 최선의 결과를 만들어주셔서 큰 힘이 되었습니다." },
+                { reviewer: "이OO님 (형사 사건)", title: "초기 대응의 중요성을 깨달았습니다.", summary: "경찰 조사 단계부터 어떻게 대응해야 할지 막막했는데, 변호사님 덕분에 억울한 부분 없이 조사를 잘 마칠 수 있었습니다. 신속하고 명확한 조언이 큰 도움이 됐습니다." },
+                { reviewer: "최OO님 (부동산 계약 자문)", title: "계약서 검토 하나로 큰 손실을 막았습니다.", summary: "별문제 없어 보이던 계약서에서 변호사님께서 독소 조항을 발견해주신 덕분에 수천만 원의 손실을 막을 수 있었습니다. 역시 전문가는 다르다는 것을 느꼈습니다." },
+                { reviewer: "정OO님 (가사 소송)", title: "든든한 법률 파트너를 만난 기분입니다.", summary: "어렵고 민감한 가족 문제였음에도 불구하고, 비밀을 철저히 보장해주시면서도 제 권리를 완벽하게 지켜주셨습니다. 앞으로도 법률 문제는 클리어 법률사무소와 함께할 겁니다." },
+                { reviewer: "윤OO님 (형사 고소 대리)", title: "답답했던 마음이 뻥 뚫렸습니다.", summary: "피해를 보고도 어떻게 해야 할지 몰라 답답했는데, 고소장 작성부터 증거 수집까지 모든 과정을 꼼꼼하게 처리해주셔서 원하는 결과를 얻을 수 있었습니다." }
+            ];
+
+            // Reusable Pagination and Display Logic
+            function setupPaginatedSection(config) {
+                const { data, listContainer, paginationContainer, rowsPerPage, renderItem, filterSetup } = config;
+                let currentPage = 1;
+
+                function displayList(items, wrapper, rows, page) {
+                    wrapper.innerHTML = "";
+                    page--;
+                    let start = rows * page;
+                    let end = start + rows;
+                    let paginatedItems = items.slice(start, end);
+                    paginatedItems.forEach(itemData => wrapper.appendChild(renderItem(itemData)));
+                }
+
+                function setupPaginationUI(items, wrapper, rows) {
+                    wrapper.innerHTML = "";
+                    let page_count = Math.ceil(items.length / rows);
+                    for (let i = 1; i < page_count + 1; i++) {
+                        let btn = createPaginationButton(i, items);
+                        wrapper.appendChild(btn);
+                    }
+                }
+
+                function createPaginationButton(page, items) {
+                    let button = document.createElement('span');
+                    button.classList.add('page-link');
+                    button.innerText = page;
+                    if (currentPage == page) button.classList.add('active');
+                    button.addEventListener('click', function() {
+                        currentPage = page;
+                        displayList(items, listContainer, rowsPerPage, currentPage);
+                        let current_btn = paginationContainer.querySelector('.active');
+                        if (current_btn) current_btn.classList.remove('active');
+                        button.classList.add('active');
+                    });
+                    return button;
+                }
+                
+                if (filterSetup) {
+                    filterSetup((filteredData) => {
+                        currentPage = 1;
+                        displayList(filteredData, listContainer, rowsPerPage, currentPage);
+                        setupPaginationUI(filteredData, paginationContainer, rowsPerPage);
+                    });
+                } else {
+                    displayList(data, listContainer, rowsPerPage, currentPage);
+                    setupPaginationUI(data, paginationContainer, rowsPerPage);
+                }
+            }
+
+            // --- Success Stories Setup ---
+            setupPaginatedSection({
+                data: successStories,
+                listContainer: document.getElementById('stories-list'),
+                paginationContainer: document.getElementById('pagination-controls'),
+                rowsPerPage: 5,
+                renderItem: (story) => {
+                    const item = document.createElement('div');
+                    item.className = 'story-item';
+                    item.innerHTML = `<div><span class="story-item-category">${story.category}</span><div class="story-item-content"><h3>${story.title}</h3><p>${story.summary}</p></div></div>`;
+                    return item;
+                },
+                filterSetup: (updateDisplay) => {
+                    const categoriesContainer = document.querySelector('.category-btn-container');
+                    const categories = ['전체', ...new Set(successStories.map(story => story.category))];
+                    categories.forEach(category => {
+                        const button = document.createElement('button');
+                        button.className = 'category-btn';
+                        button.textContent = category;
+                        if (category === '전체') button.classList.add('active');
+                        button.addEventListener('click', () => {
+                            categoriesContainer.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+                            button.classList.add('active');
+                            const filteredData = (category === '전체') ? successStories : successStories.filter(story => story.category === category);
+                            updateDisplay(filteredData);
+                        });
+                        categoriesContainer.appendChild(button);
+                    });
+                    updateDisplay(successStories); // Initial display
+                }
+            });
+
+            // --- Consultation Reviews Setup ---
+            setupPaginatedSection({
+                data: consultationReviews,
+                listContainer: document.getElementById('reviews-list'),
+                paginationContainer: document.getElementById('reviews-pagination-controls'),
+                rowsPerPage: 5,
+                renderItem: (review) => {
+                    const item = document.createElement('div');
+                    item.className = 'review-item';
+                    item.innerHTML = `<h3>${review.title}</h3><p>${review.summary}</p><div class="reviewer">${review.reviewer}</div>`;
+                    return item;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
